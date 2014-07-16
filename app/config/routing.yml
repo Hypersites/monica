@@ -1,0 +1,5 @@
+hypersites_monica:
+    resource: "@HypersitesMonicaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

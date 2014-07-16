@@ -1,0 +1,57 @@
+{
+  "name" : "Hypersites/monica",
+  "description" : "Sistema de Gestão para Divecenters",
+  "require" : {
+    "php" : ">=5.3.3",
+    "symfony/symfony" : "2.5.*",
+    "doctrine/orm" : "~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle" : "~1.2",
+    "twig/extensions" : "~1.0",
+    "symfony/assetic-bundle" : "~2.3",
+    "symfony/swiftmailer-bundle" : "~2.3",
+    "symfony/monolog-bundle" : "~2.4",
+    "sensio/distribution-bundle" : "~3.0",
+    "sensio/framework-extra-bundle" : "~3.0",
+    "incenteev/composer-parameter-handler" : "~2.0",
+    "mopa/bootstrap-bundle" : ">=3.x-dev",
+    "twbs/bootstrap" : ">=v3.2.0",
+    "leafo/lessphp" : ">=v0.4.0",
+    "knplabs/knp-menu" : "dev-master",
+    "knplabs/knp-menu-bundle" : "dev-master",
+    "knplabs/knp-paginator-bundle" : "dev-master",
+    "craue/formflow-bundle" : "dev-master"
+  },
+  "require-dev" : {
+    "sensio/generator-bundle" : "~2.3"
+  },
+  "license" : "GPL V2",
+  "extra" : {
+    "symfony-app-dir" : "app",
+    "symfony-web-dir" : "web",
+    "incenteev-parameters" : {
+      "file" : "app/config/parameters.yml"
+    },
+    "branch-alias" : {
+      "dev-master" : "2.5-dev"
+    }
+  },
+  "minimum-stability" : "stable",
+  "autoload" : {
+    "psr-0" : {
+      "" : "src/",
+      "SymfonyStandard" : "app/"
+    }
+  },
+  "type" : "project",
+  "scripts" : {
+    "post-install-cmd" : [ "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles" ],
+    "post-update-cmd" : [ "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile", "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles" ]
+  },
+  "config" : {
+    "bin-dir" : "bin"
+  },
+  "authors" : [ {
+    "name" : "Alexandre dos Santos Andrade",
+    "email" : "alexandretaz@gmail.com"
+  } ]
+}
