@@ -94,5 +94,5 @@ mopa_bootstrap:
                     class: btn
                 icon: null
                 icon_inverted: false
-    menu: ~
+     menu: ~
 #        template: MyBundles:Menu:template.html.twig

@@ -16,20 +16,22 @@ class CustomerType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('email')
+            ->add('email', 'email', array(
+            	'invalid_message' => 'You entered a invalid e-mail',
+            ))
             ->add('kindOfCustomer')
             ->add('fiscalDocument')
             ->add('indetityDocument')
             ->add('telephone')
             ->add('cellphone')
-            ->add('birthdate')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('address')
-            ->add('referredBy')
+            ->add('birthdate','date',array('widget'=>'single_text','format'=>'yyyy-MM-dd',))
+            ->add('createdAt', 'hidden', array('data'=>$this->getFormattedDate()))
+            ->add('updatedAt','hidden', array('data'=>$this->getFormattedDate()) )
+            ->add('address', new AddressType())
+            ->add('referredBy', 'search')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -46,5 +48,17 @@ class CustomerType extends AbstractType
     public function getName()
     {
         return 'hypersites_monicabundle_customer';
+    }
+
+	/**
+	 *
+	 * @param \Datetime $date
+	 * @return string
+	 */
+    public function getFormattedDate( \Datetime $date = null) {
+    	if ($date === null) {
+    		$date = new \Datetime();
+    	}
+    	return $date->format('Y-m-d H:i:s');
     }
 }

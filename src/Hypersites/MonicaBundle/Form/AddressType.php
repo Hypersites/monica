@@ -23,12 +23,12 @@ class AddressType extends AbstractType
             ->add('state')
             ->add('country')
             ->add('obs')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('createdAt', 'hidden', array('data'=>date('Y-m-d H:i:s')))
+            ->add('updatedAt', 'hidden', array('data'=>date('Y-m-d H:i:s')))
             ->add('alias')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
