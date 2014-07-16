@@ -1,0 +1,15 @@
+/bin
+/vendor
+/bin/*
+/venor/*
+/composer.lock
+.buildpath
+.project
+.settings/
+app/bootstrap.php.cache
+app/cache/dev/
+app/cache/prod/
+app/config/parameters.yml
+app/logs/dev.log
+
+
