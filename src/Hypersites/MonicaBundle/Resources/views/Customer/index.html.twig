@@ -1,6 +1,21 @@
-{% extends 'MopaBootstrapBundle::base.html.twig' %}
+{% extends 'MopaBootstrapBundle::base_less.html.twig' %}
+{% block title %}
+{% trans with {'%appname%': 'Mônica', '%module%':'Customer'} from "app" %} %appname% E-commerce management system - %module%{% endtrans %}
+{% endblock %}
 
 {% block body -%}
+<header>
+<div>
+	<nav>
+		{% embed '@MopaBootstrap/Navbar/navbar.html.twig'  with { inverse: true } %}
+    		{% block menu %}
+        		{{ mopa_bootstrap_menu('HypersitesMonicaBundle:Builder:mainMenu') }}
+    		{% endblock %}
+		{% endembed %}
+</nav>
+</div>
+</header>
+<content>
     <h1>Customer list</h1>
 
     <table class="records_list">

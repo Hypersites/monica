@@ -1,4 +1,7 @@
-{% extends '::base.html.twig' %}
+{% extends 'MopaBootstrapBundle::base_less.html.twig' %}
+{% block title %}
+{% trans with {'%appname%': 'Mônica', '%module%':'Address'} from "app" %} %appname% E-commerce management system - %module%{% endtrans %}
+{% endblock %}
 
 {% block body -%}
     <h1>Address creation</h1>

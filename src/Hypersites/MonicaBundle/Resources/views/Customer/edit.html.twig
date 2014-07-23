@@ -1,7 +1,21 @@
-{% extends 'MopaBootstrapBundle::base.html.twig' %}
-
-{% block body -%}
-    <h1>Customer edit</h1>
+{% extends 'MopaBootstrapBundle::base_less.html.twig' %}
+{% block title %}
+{% trans with {'%appname%': 'Mônica', '%module%':'Customer'} from "app" %} %appname% E-commerce management system - %module%{% endtrans %}
+{% endblock %}
+{% block body %}
+<header>
+<div>
+	<nav>
+		{% embed '@MopaBootstrap/Navbar/navbar.html.twig'  with { inverse: true } %}
+    		{% block menu %}
+        		{{ mopa_bootstrap_menu('HypersitesMonicaBundle:Builder:mainMenu') }}
+    		{% endblock %}
+		{% endembed %}
+</nav>
+</div>
+</header>
+<content>
+	<h1>Customer edit</h1>
 
     {{ form(edit_form) }}
 
@@ -13,4 +27,6 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+</content>
+
 {% endblock %}

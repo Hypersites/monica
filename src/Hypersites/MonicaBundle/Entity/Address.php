@@ -38,7 +38,7 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="apartament", type="string", length=255)
+     * @ORM\Column(name="apartament", type="string", length=255, nullable=true)
      */
     private $apartament;
 
@@ -97,6 +97,12 @@ class Address
      * @ORM\Column(name="alias", type="string", length=255)
      */
     private $alias;
+
+
+    public function __construct() {
+    	$now = new \DateTime();
+    	$this->setCreatedAt($now)->setUpdatedAt($now);
+    }
 
 
     /**
@@ -361,4 +367,12 @@ class Address
     {
         return $this->alias;
     }
+	public function getPostalCode() {
+		return $this->postalCode;
+	}
+	public function setPostalCode($postalCode) {
+		$this->postalCode = $postalCode;
+		return $this;
+	}
+
 }

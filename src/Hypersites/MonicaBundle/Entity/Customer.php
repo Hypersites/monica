@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Customer
  *
- * @ORM\Table()
+ * @ORM\Table(name="Customer", uniqueConstraints={@ORM\UniqueConstraint(name="fiscal_identity", columns={"kind_of_customer", "fiscal_document"})})
  * @ORM\Entity(repositoryClass="Hypersites\MonicaBundle\Entity\CustomerRepository")
  */
 class Customer
@@ -33,7 +33,7 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
@@ -47,7 +47,7 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="fiscal_doocument", type="string", length=20)
+     * @ORM\Column(name="fiscal_document", type="string", length=20)
      */
     private $fiscalDocument;
 
@@ -76,7 +76,7 @@ class Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="cellphone", type="string", length=14)
+     * @ORM\Column(name="cellphone", type="string", length=14, nullable=true)
      */
     private $cellphone;
 
@@ -102,19 +102,18 @@ class Customer
     private $updatedAt;
 
     /**
-     * @var Customer
-     * @ORM\OneToMany(targetEntity="Customer", mappedBy="referredBy")
-     */
-    private $referrals;
-
-    /**
      *
      * @var Customer
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="referrals")
-     * @ORM\JoinColumn(name="referred_by", referencedColumnName="id")
+     * @ORM\JoinColumn(name="referred_by", referencedColumnName="id", nullable=true)
      */
 
     private $referredBy;
+
+    public function __construct() {
+    	$now = new \DateTime();
+    	$this->setCreatedAt($now)->setUpdatedAt($now);
+    }
 
 
     /**
@@ -380,17 +379,6 @@ class Customer
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    public function getReferrals()
-    {
-        return $this->referrals;
-    }
-
-    public function setReferrals(Customer $referrals)
-    {
-        $this->referrals = $referrals;
-        return $this;
     }
 
     public function getReferredBy()
