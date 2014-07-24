@@ -9,6 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Hypersites\MonicaBundle\Entity\Customer;
 use Hypersites\MonicaBundle\Form\CustomerType;
+use Hypersites\MonicaBundle\Model as MonicaModel;
+use Hypersites\MonicaBundle\HypersitesMonicaBundle;
+use Hypersites;
 
 /**
  * Customer controller.
@@ -46,10 +49,17 @@ class CustomerController extends Controller
     {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
+        $referredBy = $form->get('referredBy');
+        if(!($referredBy instanceof Customer)) {
+        	$referredBy->setData(null);
+
+        }
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $now = new \Datetime();
+            $entity->setCreatedAt($now)->setUpdatedAt($now)->getAddress()->setCreatedAt($now)->setUpdatedAt($now);
             $em->persist($entity);
             $em->flush();
 
@@ -71,6 +81,7 @@ class CustomerController extends Controller
      */
     private function createCreateForm(Customer $entity)
     {
+
         $form = $this->createForm(new CustomerType(), $entity, array(
             'action' => $this->generateUrl('customer_create'),
             'method' => 'POST',

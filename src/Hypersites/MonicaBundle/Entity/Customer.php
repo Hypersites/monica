@@ -3,6 +3,7 @@
 namespace Hypersites\MonicaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -14,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer
 {
+	const KINDOFPERSON_COMPANY = 1;
+
+	const KINDOFPERSON_PERSON = 2;
+
     /**
      * @var integer
      *
@@ -59,9 +64,9 @@ class Customer
     private $indetityDocument;
 
     /**
-     * @var \Hypersites\MonicaBundle\Entity\Address
+     * @var Address
      *
-     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\ManyToOne(targetEntity="Address", inversedBy="customers", cascade={"persist"})
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      */
     private $address;
@@ -103,9 +108,15 @@ class Customer
 
     /**
      *
-     * @var Customer
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="referrals")
-     * @ORM\JoinColumn(name="referred_by", referencedColumnName="id", nullable=true)
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="referred_by")
+     */
+    private $referrals;
+
+    /**
+     *
+     * @var int
+     * @ORM\Column(name="referred_by", nullable=true)
      */
 
     private $referredBy;
@@ -113,6 +124,8 @@ class Customer
     public function __construct() {
     	$now = new \DateTime();
     	$this->setCreatedAt($now)->setUpdatedAt($now);
+    	$referrals = new ArrayCollection();
+    	$this->setReferrals($referrals);
     }
 
 
@@ -180,7 +193,12 @@ class Customer
      */
     public function setKindOfCustomer($kindOfCustomer)
     {
-        $this->kindOfCustomer = $kindOfCustomer;
+    	if($kindOfCustomer!=self::KINDOFPERSON_COMPANY && $kindOfCustomer!=self::KINDOFPERSON_PERSON) {
+    		throw new \InvalidArgumentException('Invalid Kind of person');
+    		return $this;
+    	}
+
+    		$this->kindOfCustomer = $kindOfCustomer;
 
         return $this;
     }
@@ -386,10 +404,27 @@ class Customer
         return $this->referredBy;
     }
 
-    public function setReferredBy(Customer $referredBy)
+    public function setReferredBy($referredBy)
     {
-        $this->referredBy = $referredBy;
+    	if(!empty($referredBy))
+        	$this->referredBy = $referredBy;
         return $this;
     }
+	public function getReferrals() {
+		return $this->referrals;
+	}
+	/**
+	 * @param ArrayCollection $referrals
+	 * @return \Hypersites\MonicaBundle\Entity\Customer
+	 */
+	public function setReferrals(ArrayCollection $referrals) {
+		$this->referrals = $referrals;
+		return $this;
+	}
+	public function addReferral(Customer $referral) {
+		$this->getReferrals()->add($referral);
+
+	}
+
 
 }
