@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new Hypersites\StoreBundle\HypersitesStoreBundle(),
+        	new ZfrMailChimpBundle\ZfrMailChimpBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

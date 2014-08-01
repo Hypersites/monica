@@ -78,13 +78,17 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+zfr_mail_chimp:
+  api_key: b47e213d4fee5761c2827e59a3c75de8-us3 #your MailChimp API key here (required)
+  async: false #use Guzzle's Asyncronous library (default: false)
+
 #Mopa Bootstrap Configuration
 mopa_bootstrap:
      form:
-        templating: false # default is true
+        templating: MopaBootstrapBundle:Form:fields.html.twig # default is true
         render_fieldset: true # default is true
         render_collection_item: true # default is true
-        show_legend: true # default is true
+        show_legend: false # default is true
         show_child_legend: false # default is false
         render_required_asterisk: true # default is true
         checkbox_label: 'both' # default is both (label|widget|both)
@@ -99,7 +103,7 @@ mopa_bootstrap:
                 attr:
                     class: btn
                 icon: null
-                icon_inverted: false
+                icon_inverted: true
      menu: ~
      navbar: ~
      initializr: ~

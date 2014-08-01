@@ -9,9 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Hypersites\MonicaBundle\Entity\Customer;
 use Hypersites\MonicaBundle\Form\CustomerType;
-use Hypersites\MonicaBundle\Model as MonicaModel;
-use Hypersites\MonicaBundle\HypersitesMonicaBundle;
-use Hypersites;
 
 /**
  * Customer controller.
@@ -62,7 +59,36 @@ class CustomerController extends Controller
             $entity->setCreatedAt($now)->setUpdatedAt($now)->getAddress()->setCreatedAt($now)->setUpdatedAt($now);
             $em->persist($entity);
             $em->flush();
+            try{
+            $mailchimp = $this->get('zfr_mail_chimp')->getClient();
+            $arrName = explode(' ',$entity->getName());
+			$mailchimp->subscribe(array(
+            		'id' => '8965ba268a',
+            		'email' => array(
+            				'email' => $entity->getEmail(),
+	       			),
+           			'merge_vars' => array(
+           				'FNAME' => $arrName['0'],
+           				'LNAME' => $arrName[count($arrName)-1],
+           				'mc_language' => 'pt'
+           			),
 
+           	));
+
+            }
+            catch (\ZfrMailChimp\Exception\Ls\AlreadySubscribedException $e) {
+            	$logger = $this->get('logger');
+    			$logger->error($e->getMessage());
+            	// Any other exception that may occur
+            	// You can do something interesting here!
+            } catch(\ZfrMailChimp\Exception\Ls\DoesNotExist $e) {
+            	$logger = $this->get('logger');
+    			$logger->error($e->getMessage());
+            }
+            catch (\ZfrMailChimp\Exception\ExceptionInterface $e) {
+				$logger = $this->get('logger');
+    			$logger->error($e->getMessage());
+            }
             return $this->redirect($this->generateUrl('customer_show', array('id' => $entity->getId())));
         }
 

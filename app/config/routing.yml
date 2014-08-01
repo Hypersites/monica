@@ -1,7 +1,7 @@
 hypersites_store:
     resource: "@HypersitesStoreBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /store/
 
 hypersites_monica:
     resource: "@HypersitesMonicaBundle/Controller/"

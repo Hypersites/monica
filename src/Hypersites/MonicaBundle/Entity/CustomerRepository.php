@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class CustomerRepository extends EntityRepository
 {
+	public function getCustomerListByName()
+	{
+
+	}
+
+	public function getCustomerByFiscalDocument()
+	{
+
+	}
+
+	public function CustomerByEmailOrName()
+	{
+
+	}
 }
